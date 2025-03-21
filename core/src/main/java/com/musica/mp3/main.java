@@ -9,22 +9,27 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+
 public class main extends Game {
-    //private SpriteBatch batch;
-    //private Texture image;
+   
     public Music musica; 
     public boolean sonidoActivado = true;
+    GestionLista gestionLista;
+    
     
 
     @Override
     public void create() {
-        //batch = new SpriteBatch();
-        //image = new Texture("libgdx.png");
+       gestionLista = new GestionLista(); 
         setScreen(new MP3(this));
+        
+        gestionLista.agregarCancion("Cancion1", "Random", 3.5f, "imagen1.jpg", "Fondo");
+        
+        
         musica = Gdx.audio.newMusic(Gdx.files.internal("musica.mp3"));
          musica.setLooping(true);
         musica.setVolume(0.5f);
+        
          if (sonidoActivado) {
             musica.play();
         }
@@ -46,16 +51,11 @@ public class main extends Game {
     @Override
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        /*batch.begin();
-        batch.draw(image, 140, 210);
-        batch.end();*/
         super.render();
     }
 
     @Override
     public void dispose() {
-       /* batch.dispose();
-        image.dispose();*/
        super.dispose();
        if (musica != null) {
             musica.dispose();
